@@ -270,7 +270,7 @@ const NovusTeaser = () => {
                 fontSize="100px"
                 className="text-white text-center drop-shadow-xl"
               >
-                BEC-IEEE Web Team
+                Presented by : BEC-IEEE
               </FuzzyText>
               {/* Text Underline Effect */}
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-32 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>

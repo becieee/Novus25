@@ -26,6 +26,7 @@ const NovusTeaser = () => {
 
   // Handle click counting with visual feedback
   const handleClick = (e) => {
+    if(clickCount<5)
     setClickCount((prev) => prev + 1);
     
     // Create click ripple effect
@@ -48,10 +49,15 @@ const NovusTeaser = () => {
       const timer = setTimeout(() => {
         setShowLightRays(false);
         setClickCount(0); // reset click count
-      }, 5000);
+      }, 7000);
       return () => clearTimeout(timer);
     }
   }, [clickCount]);
+
+  function handleClickClose(){
+    setShowLightRays(false);
+    setClickCount(0);
+  }
 
   return (
     <div
@@ -163,11 +169,11 @@ const NovusTeaser = () => {
             <LightRays
               raysOrigin="top-center"
               raysColor="#00ffff"
-              raysSpeed={1.5}
+              raysSpeed={2}
               lightSpread={0.8}
-              rayLength={1.2}
+              rayLength={3}
               followMouse={true}
-              mouseInfluence={0.1}
+              mouseInfluence={0.8}
               noiseAmount={0.1}
               distortion={0.05}
               className="w-full h-full"
@@ -183,10 +189,10 @@ const NovusTeaser = () => {
               <DecryptedText
                 text="NOVUS'25"
                 speed={25}
-                maxIterations={125}
-                characters="ABCD1234!@#$%^&*()[]-=;'/.,><?:"
-                className="revealed text-white text-9xl font-bold text-center drop-shadow-2xl"
-                parentClassName="all-letters text-white text-9xl font-bold"
+                maxIterations={75}
+                characters="qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM43'"
+                className="revealed text-white text-6xl lg:text-9xl font-bold text-center drop-shadow-2xl"
+                parentClassName="all-letters text-white text-6xl lg:text-9xl font-bold"
                 encryptedClassName="encrypted"
                 animateOn="view"
               />
@@ -213,14 +219,8 @@ const NovusTeaser = () => {
             </div>
           </div>
 
-          {/* Countdown Timer */}
-          <div className="absolute top-1/2 right-8 -translate-y-1/2">
-            <div className="bg-black/60 backdrop-blur-sm rounded-lg p-3 border border-cyan-500/30">
-              <p className="text-cyan-400 text-xs font-mono mb-1">AUTO-RESET</p>
-              <div className="text-2xl font-mono text-white">
-                {5 - Math.floor((Date.now() % 5000) / 1000)}s
-              </div>
-            </div>
+          <div className="absolute right-10 bottom-3/4" onClick={handleClickClose}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24"><g fill="none" stroke="#06edff" stroke-dasharray="16" stroke-dashoffset="16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M7 7l10 10"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="16;0"/></path><path d="M17 7l-10 10"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.4s" values="16;0"/></path></g></svg>
           </div>
         </div>
       ) : (
@@ -264,10 +264,10 @@ const NovusTeaser = () => {
           <div className="absolute bottom-1/3 left-1/2 -translate-x-1/2 translate-y-1/2">
             <div className="relative">
               <FuzzyText
-                baseIntensity={1}
-                hoverIntensity={0.2}
+                baseIntensity={0.75}
+                hoverIntensity={0.1}
                 enableHover={true}
-                fontSize="100px"
+                fontSize={window.innerWidth <= 480 ? "35px" : "100px"}
                 className="text-white text-center drop-shadow-xl"
               >
                 Presented by : BEC-IEEE
@@ -281,7 +281,7 @@ const NovusTeaser = () => {
           <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
             <div className="bg-black/60 backdrop-blur-sm rounded-full px-6 py-3 border border-gray-600/50 transition-all duration-300 hover:border-cyan-400/50">
               <p className="text-gray-300 font-mono text-sm animate-pulse">
-                Click anywhere to activate • {clickCount}/5
+                Click anywhere for a surprise • {clickCount}/5
               </p>
             </div>
           </div>
